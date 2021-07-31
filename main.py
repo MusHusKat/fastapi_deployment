@@ -1,6 +1,9 @@
 from fastapi import FastAPI
 from pydantic import BaseModel, Field
-from .ml import model
+try:
+    from .ml import model
+except:
+    from ml import model
 import os
 
 if "DYNO" in os.environ and os.path.isdir(".dvc"):

@@ -11,7 +11,7 @@ def test_welcome_path():
     assert response.json() == "Welcome to this FastAPI deployment of a Salary Predictor"
 
 
-def test_prediction_below_50k():
+def test_prediction_below_50k(mocker):
     response = client.post(
         "/predict_salary/",
         json={

@@ -19,6 +19,7 @@ def test_compute_model_metrics():
 
 
 def test_save_artifacts(mocker):
+    open_mocker = mocker.patch.object(model, "open")
     pickle_mocker = mocker.patch.object(model, "pickle")
 
     model_artifact = {"name": "dummy"}
