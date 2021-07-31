@@ -117,7 +117,10 @@ def computer_metrics_slices(data, categorical_features, label, model_artifact):
     model = model_object.pop("model")
 
     slice_metrics = dict()
+    print("Computer metrics for each slice:")
     for column in categorical_features:
+        print("---"*20)
+        print(f"--------COLUMN NAME: {column}")
         this_slice_metric = dict()
         for unique_value in data[column].unique():
             slice_data = data[data[column] == unique_value]
@@ -126,10 +129,15 @@ def computer_metrics_slices(data, categorical_features, label, model_artifact):
                 slice_data, categorical_features, label, training=False, **model_object
             )
             preds_slice = inference(model, X_slice)
-            this_slice_metric[unique_value] = compute_model_metrics(
+            metrics_current = compute_model_metrics(
                 y_slice, preds_slice
             )
-        slice_metrics[column] = this_slice_metric
+            this_slice_metric[unique_value] = metrics_current
+            print(f"Unique Value: {unique_value}")
+            print(metrics_current)
 
-    with open("data/slice_metrics.json", "w") as f:
+        slice_metrics[column] = this_slice_metric
+    print("---"*20)
+
+    with open("data/slice_metrics.txt", "w") as f:
         json.dump(slice_metrics, f)
