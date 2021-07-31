@@ -1,3 +1,4 @@
 /cleaned_census.csv
 *cache*
-data/*
+data/census.csv
+data/cleaned_census.csv
