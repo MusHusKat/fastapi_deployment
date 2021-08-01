@@ -1,7 +1,7 @@
 import requests
 
 response = requests.post(
-        "/predict_salary/",
+        "https://udacitymus2.herokuapp.com/predict_salary/",
         json={
             "age": 52,
             "workclass": "Self-emp-inc",

@@ -3,7 +3,7 @@ import os
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from ml.data import process_data
-from ml.model import computer_metrics_slices, train_model, save_model_artifacts
+from ml.model import computer_metrics_slices, computer_metrics_test_set, train_model, save_model_artifacts
 
 from dotenv import load_dotenv
 
@@ -26,6 +26,10 @@ def run():
         train, categorical_features=cat_features, label="salary", training=True
     )
 
+    X_test, y_test, _, _ = process_data(
+        train, categorical_features=cat_features, label="salary", training=False,
+        encoder=encoder, lb=lb
+    )
     # Train and save a model.
     model = train_model(X_train, y_train)
 
@@ -39,6 +43,8 @@ def run():
         label="salary",
         model_artifact=model_group,
     )
+
+    computer_metrics_test_set(X_test, y_test, model)
 
 
 if __name__ == "__main__":

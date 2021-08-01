@@ -110,6 +110,24 @@ def save_model_artifacts(artifact_path, **kwargs):
     pickle.dump(kwargs, open(artifact_path, "wb"))
 
 
+def computer_metrics_test_set(X, ytrue, model):
+
+    ypreds = inference(model, X)
+    precision, recall, fbeta = compute_model_metrics(ytrue, ypreds)
+    test_metrics = {
+        'precision': precision,
+        'recall': recall,
+        'fbeta': fbeta
+    }
+    print("---"*20)
+    print("Test set overall metrics")
+    for k, v in test_metrics.items():
+        print(f"{k}: {v}")
+    print("---"*20)
+    with open("data/test_metrics.txt", "w") as f:
+        json.dump(test_metrics, f)
+
+        
 def computer_metrics_slices(data, categorical_features, label, model_artifact):
 
     model_object = dict(**model_artifact)

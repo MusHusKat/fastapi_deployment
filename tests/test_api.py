@@ -31,7 +31,7 @@ def test_prediction_below_50k(mocker):
             "native-country": "United-States",
         },
     )
-    # assert response.status_code == 200
+    assert response.status_code == 200
     print(response.json())
     assert response.json() == "Model predicts Salary should be <50k"
 
@@ -56,6 +56,6 @@ def test_prediction_above50k():
             "native-country": "United-States",
         },
     )
-    # assert response.status_code == 200
+    assert response.status_code == 200
     print(response.json())
     assert response.json() == "Model predicts Salary should be >50k"
